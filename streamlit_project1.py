@@ -528,7 +528,7 @@ elif choice == 'Dự đoán mới':
 
         # path = ChromeDriverManager().install()
 
-        while True:
+        while True: 
             # try:
             #     text = nhan_text()
             # except:
@@ -568,10 +568,11 @@ elif choice == 'Dự đoán mới':
     else:
         # path = ChromeDriverManager().install()
         while True:
-            try:
-                text = nhan_text()
-            except:
-                text = ""
+            # try:
+            #     text = nhan_text()
+            # except:
+            #     text = ""
+            text = nhan_text()
 
             if text == "":
                 voice = "bạn muốn nói gì với chatGPT"
