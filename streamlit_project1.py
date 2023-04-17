@@ -39,11 +39,11 @@ import smtplib
 import requests
 import urllib
 import urllib.request as urllib2
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from webdriver_manager.chrome import ChromeDriverManager
 from time import strftime
-from youtube_search import YoutubeSearch
+# from selenium import webdriver
+# from selenium.webdriver.common.keys import Keys
+# from webdriver_manager.chrome import ChromeDriverManager
+# from youtube_search import YoutubeSearch
 
 #----------------------------------------------------------------------------------------------------
 # 1. Phần chatGPT
