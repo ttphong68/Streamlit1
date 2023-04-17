@@ -7,12 +7,8 @@ underthesea
 wordcloud
 import_ipynb
 openai
-youtube_search
-webdriver_manager
-selenium
 playsound
 gtts
-
 pyaudio
 speechrecognition
 --index-url=https://pypi.org/simple/
