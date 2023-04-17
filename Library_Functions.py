@@ -43,7 +43,7 @@ warnings.filterwarnings("ignore")
 #---------------------------------------------------------------------------------------------
 def speech_to_text():
     r = sr.Recognizer()
-    with sr.Microphone() as source:
+    with sr.Microphone(device_index=2) as source:
         # print("Mời bạn nói: ")
         r.adjust_for_ambient_noise(source)
         audio = r.listen(source,phrase_time_limit=5)
