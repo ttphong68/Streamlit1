@@ -526,7 +526,7 @@ elif choice == 'Dự đoán mới':
     elif choice == "Bình luận bằng giọng nói" :
         st.write('Bạn chọn Bình luận bằng giọng nói')
 
-        path = ChromeDriverManager().install()
+        # path = ChromeDriverManager().install()
 
         while True:
             # try:
@@ -566,7 +566,7 @@ elif choice == 'Dự đoán mới':
                     st.write(sentiment)
                     # text_to_speech(sentiment)
     else:
-        path = ChromeDriverManager().install()
+        # path = ChromeDriverManager().install()
         while True:
             try:
                 text = nhan_text()
