@@ -547,8 +547,8 @@ elif choice == 'Dự đoán mới':
         # Chuyển đổi giọng nói thành văn bản
         text = r.recognize_google(audio_data, language='vi-VN')
 
-# In ra kết quả
-st.write('Văn bản:', text)
+        # In ra kết quả
+        st.write('Văn bản:', text)
 
         # while True: 
         #     # try:
