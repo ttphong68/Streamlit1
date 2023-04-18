@@ -523,7 +523,7 @@ elif choice == 'Dự đoán mới':
                 st.download_button('Download', data=output, file_name='result_csv.csv', mime='text/csv')
     elif choice == "Tải tệp âm thanh" :
         st.write('Click link bên dưới để ghi âm bình luận')
-        st.header("https://online-voice-recorder.com/vi/")
+        st.header("https://vocalremover.org/vi/voice-recorder")
         # Tạo một khu vực để tải lên tệp âm thanh
         audio_file = st.file_uploader("Tải lên tệp âm thanh", type=["wav", "mp3"])
 
