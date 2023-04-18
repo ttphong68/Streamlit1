@@ -357,8 +357,9 @@ elif choice == 'Dự đoán mới':
     st.write('''
     Nhập vào một bình luận và mô hình sẽ dự đoán tình cảm của bình luận. 
     ''')
-    menu = ["Nhập bình luận", "Tải tệp Excel", "Tải tệp CSV", "Bình luận bằng giọng nói", "Nói chuyện với chatGPT"]
+    # menu = ["Nhập bình luận", "Tải tệp Excel", "Tải tệp CSV", "Bình luận bằng giọng nói", "Nói chuyện với chatGPT"]
     # menu = ["Nhập bình luận", "Tải tệp Excel", "Tải tệp CSV"]
+    menu = ["Nhập bình luận", "Tải tệp Excel", "Tải tệp CSV", "Tải tệp âm thanh"]
     choice = st.selectbox("Menu",menu)
     if choice == "Nhập bình luận":
         comment = st.text_input('Nhập vào một bình luận')
@@ -519,74 +520,93 @@ elif choice == 'Dự đoán mới':
                 df_after_predict.to_csv(output, index=False)
                 output.seek(0)
                 st.download_button('Download', data=output, file_name='result_csv.csv', mime='text/csv')
+    elif choice == "Tải tệp âm thanh" :
+        st.write('Bạn chọn Bình luận bằng tệp âm thanh')
+
+        # Tạo một khu vực để tải lên tệp âm thanh
+        audio_file = st.file_uploader("Tải lên tệp âm thanh", type=["wav", "mp3"])
+
+        # Tạo một nút để phát âm
+        if st.button("Phát âm file đã tải"):
+            if audio_file is not None:
+                # Đọc dữ liệu âm thanh
+                audio_bytes = audio_file.read()
+                # Phát âm thanh
+                st.audio(audio_bytes, format='audio/ogg')
+            else:
+                st.warning("Hãy tải lên một tệp âm thanh để phát âm")
+
+        # Tạo một nút để bắt đầu chuyển đổi giọng nói thành văn bản
+        if st.button("Chuyển đổi giọng nói thành bình luận và dự đoán"):
+
+            if audio_file is not None:
+                # Sử dụng thư viện SpeechRecognition để chuyển đổi tệp âm thanh thành văn bản
+                r = sr.Recognizer()
+                audio_data = sr.AudioFile(audio_file)
+                with audio_data as source:
+                    audio = r.record(source)
+                    text = r.recognize_google(audio, language="vi-VN")
+                
+                # Hiển thị văn bản được chuyển đổi
+                st.write('Câu bình luận của bạn :'+text)
+                # Dự đoán
+                text = text_transform(text)
+                text = cv.transform([text])
+                y_predict = model.predict(text)
+
+                if y_predict[0] == 1:
+                    sentiment = 'Tình cảm của bình luận là tích cực'
+                    st.write(sentiment)
+                else:
+                    sentiment = 'Tình cảm của bình luận là tiêu cực'
+                    st.write(sentiment)
+                    # text_to_speech(sentiment)
+
+            else:
+                st.warning("Hãy tải lên một tệp âm thanh để chuyển đổi")
+#---------------------------------------------------------------------------------------------
+
     elif choice == "Bình luận bằng giọng nói" :
         st.write('Bạn chọn Bình luận bằng giọng nói')
-
-#---------------------------------------------------------------------------------------------
         # Lấy danh sách các thiết bị đầu vào âm thanh
-        p = pyaudio.PyAudio()
-        info = p.get_host_api_info_by_index(0)
-        num_devices = info.get('deviceCount')
-        input_device_options = {}
-        for i in range(num_devices):
-            if (p.get_device_info_by_host_api_device_index(0, i).get('maxInputChannels')) > 0:
-                input_device_options[i] = p.get_device_info_by_host_api_device_index(0, i).get('name')
 
-        # Tạo dropdown để chọn thiết bị đầu vào âm thanh
-        input_device = st.selectbox('Chọn thiết bị đầu vào âm thanh', options=list(input_device_options.keys()))
+        while True: 
+            # try:
+            #     text = nhan_text()
+            # except:
+            #     text = ""
 
-        # Khởi tạo recognizer với thiết bị đầu vào được chọn
-        r = sr.Recognizer()
-        with sr.Microphone(device_index=input_device) as source:
-            # Tạo gián đoạn để lắng nghe giọng nói
-            r.adjust_for_ambient_noise(source)
-            st.write('Đang ghi âm...')
-            audio_data = r.listen(source)
-            st.write('Ghi âm xong!')
+            text = nhan_text()
 
-        # Chuyển đổi giọng nói thành văn bản
-        text = r.recognize_google(audio_data, language='vi-VN')
+            if text == "":
+                voice = "bạn muốn nói gì với tôi"
+                st.write(voice)
+                # text_to_speech(voice)
+            elif "tên gì" in text:
+                voice = "tôi tên là trợ lý ảo"
+                st.write(voice)
+                # text_to_speech(voice)
+            elif "là ai" in text:
+                voice = "tôi là trợ lý ảo của anh Phong"
+                st.write(voice)
+                # text_to_speech(voice)
+            elif "bye" in text or "thoát" in text or "dừng" in text or "tạm biệt" in text or "tạm dừng" in text or "ngủ thôi" in text:
+                st.write('Hẹn gặp lại bạn sau')
+                # dung()
+                break
+            else:
+                st.write('Câu bình luận của bạn :'+text)
+                text = text_transform(text)
+                text = cv.transform([text])
+                y_predict = model.predict(text)
 
-        # In ra kết quả
-        st.write('Văn bản:', text)
-
-        # while True: 
-        #     # try:
-        #     #     text = nhan_text()
-        #     # except:
-        #     #     text = ""
-
-        #     text = nhan_text()
-
-        #     if text == "":
-        #         voice = "bạn muốn nói gì với tôi"
-        #         st.write(voice)
-        #         # text_to_speech(voice)
-        #     elif "tên gì" in text:
-        #         voice = "tôi tên là trợ lý ảo"
-        #         st.write(voice)
-        #         # text_to_speech(voice)
-        #     elif "là ai" in text:
-        #         voice = "tôi là trợ lý ảo của anh Phong"
-        #         st.write(voice)
-        #         # text_to_speech(voice)
-        #     elif "bye" in text or "thoát" in text or "dừng" in text or "tạm biệt" in text or "tạm dừng" in text or "ngủ thôi" in text:
-        #         st.write('Hẹn gặp lại bạn sau')
-        #         # dung()
-        #         break
-        #     else:
-        #         st.write('Câu bình luận của bạn :'+text)
-        #         text = text_transform(text)
-        #         text = cv.transform([text])
-        #         y_predict = model.predict(text)
-
-        #         if y_predict[0] == 1:
-        #             sentiment = 'Tình cảm của bình luận là tích cực'
-        #             st.write(sentiment)
-        #         else:
-        #             sentiment = 'Tình cảm của bình luận là tiêu cực'
-        #             st.write(sentiment)
-        #             # text_to_speech(sentiment)
+                if y_predict[0] == 1:
+                    sentiment = 'Tình cảm của bình luận là tích cực'
+                    st.write(sentiment)
+                else:
+                    sentiment = 'Tình cảm của bình luận là tiêu cực'
+                    st.write(sentiment)
+                    # text_to_speech(sentiment)
     else:
         while True:
             # try:
