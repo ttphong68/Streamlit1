@@ -565,67 +565,66 @@ elif choice == 'Dự đoán mới':
             else:
                 st.warning("Hãy tải lên một tệp âm thanh để chuyển đổi")
 #---------------------------------------------------------------------------------------------
+    # elif choice == "Bình luận bằng giọng nói" :
+    #     st.write('Bạn chọn Bình luận bằng giọng nói')
+    #     # Lấy danh sách các thiết bị đầu vào âm thanh
 
-    elif choice == "Bình luận bằng giọng nói" :
-        st.write('Bạn chọn Bình luận bằng giọng nói')
-        # Lấy danh sách các thiết bị đầu vào âm thanh
+    #     while True: 
+    #         # try:
+    #         #     text = nhan_text()
+    #         # except:
+    #         #     text = ""
 
-        while True: 
-            # try:
-            #     text = nhan_text()
-            # except:
-            #     text = ""
+    #         text = nhan_text()
 
-            text = nhan_text()
+    #         if text == "":
+    #             voice = "bạn muốn nói gì với tôi"
+    #             st.write(voice)
+    #             # text_to_speech(voice)
+    #         elif "tên gì" in text:
+    #             voice = "tôi tên là trợ lý ảo"
+    #             st.write(voice)
+    #             # text_to_speech(voice)
+    #         elif "là ai" in text:
+    #             voice = "tôi là trợ lý ảo của anh Phong"
+    #             st.write(voice)
+    #             # text_to_speech(voice)
+    #         elif "bye" in text or "thoát" in text or "dừng" in text or "tạm biệt" in text or "tạm dừng" in text or "ngủ thôi" in text:
+    #             st.write('Hẹn gặp lại bạn sau')
+    #             # dung()
+    #             break
+    #         else:
+    #             st.write('Câu bình luận của bạn :'+text)
+    #             text = text_transform(text)
+    #             text = cv.transform([text])
+    #             y_predict = model.predict(text)
 
-            if text == "":
-                voice = "bạn muốn nói gì với tôi"
-                st.write(voice)
-                # text_to_speech(voice)
-            elif "tên gì" in text:
-                voice = "tôi tên là trợ lý ảo"
-                st.write(voice)
-                # text_to_speech(voice)
-            elif "là ai" in text:
-                voice = "tôi là trợ lý ảo của anh Phong"
-                st.write(voice)
-                # text_to_speech(voice)
-            elif "bye" in text or "thoát" in text or "dừng" in text or "tạm biệt" in text or "tạm dừng" in text or "ngủ thôi" in text:
-                st.write('Hẹn gặp lại bạn sau')
-                # dung()
-                break
-            else:
-                st.write('Câu bình luận của bạn :'+text)
-                text = text_transform(text)
-                text = cv.transform([text])
-                y_predict = model.predict(text)
+    #             if y_predict[0] == 1:
+    #                 sentiment = 'Tình cảm của bình luận là tích cực'
+    #                 st.write(sentiment)
+    #             else:
+    #                 sentiment = 'Tình cảm của bình luận là tiêu cực'
+    #                 st.write(sentiment)
+    #                 # text_to_speech(sentiment)
+    # else:
+    #     while True:
+    #         # try:
+    #         #     text = nhan_text()
+    #         # except:
+    #         #     text = ""
+    #         text = nhan_text()
 
-                if y_predict[0] == 1:
-                    sentiment = 'Tình cảm của bình luận là tích cực'
-                    st.write(sentiment)
-                else:
-                    sentiment = 'Tình cảm của bình luận là tiêu cực'
-                    st.write(sentiment)
-                    # text_to_speech(sentiment)
-    else:
-        while True:
-            # try:
-            #     text = nhan_text()
-            # except:
-            #     text = ""
-            text = nhan_text()
-
-            if text == "":
-                voice = "bạn muốn nói gì với chatGPT"
-                st.write(voice)
-                # text_to_speech(voice)
-            elif "bye" in text or "thoát" in text or "dừng" in text or "tạm biệt" in text or "tạm dừng" in text or "ngủ thôi" in text:
-                st.write('Hẹn gặp lại bạn sau')
-                # dung()
-                break
-            else:
-                st.write('Bạn muốn hỏi gì với chatGPT')
-                st.write('Câu hỏi của bạn cho ChatGPT :' + text)
-                voice = chatGPT(text)
-                st.write('ChatGPT trả lời :' + voice)
-                # text_to_speech(voice)
+    #         if text == "":
+    #             voice = "bạn muốn nói gì với chatGPT"
+    #             st.write(voice)
+    #             # text_to_speech(voice)
+    #         elif "bye" in text or "thoát" in text or "dừng" in text or "tạm biệt" in text or "tạm dừng" in text or "ngủ thôi" in text:
+    #             st.write('Hẹn gặp lại bạn sau')
+    #             # dung()
+    #             break
+    #         else:
+    #             st.write('Bạn muốn hỏi gì với chatGPT')
+    #             st.write('Câu hỏi của bạn cho ChatGPT :' + text)
+    #             voice = chatGPT(text)
+    #             st.write('ChatGPT trả lời :' + voice)
+    #             # text_to_speech(voice)
