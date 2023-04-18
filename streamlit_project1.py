@@ -42,6 +42,7 @@ import urllib.request as urllib2
 from time import strftime
 import pyaudio
 #----------------------------------------------------------------------------------------------------
+
 # 1. Phần chatGPT
 
 # !pip install openai
@@ -521,8 +522,8 @@ elif choice == 'Dự đoán mới':
                 output.seek(0)
                 st.download_button('Download', data=output, file_name='result_csv.csv', mime='text/csv')
     elif choice == "Tải tệp âm thanh" :
-        st.write('Bạn chọn Bình luận bằng tệp âm thanh')
-
+        st.write('Click link bên dưới để ghi âm bình luận')
+        st.header("https://online-voice-recorder.com/vi/")
         # Tạo một khu vực để tải lên tệp âm thanh
         audio_file = st.file_uploader("Tải lên tệp âm thanh", type=["wav", "mp3"])
 
@@ -532,7 +533,8 @@ elif choice == 'Dự đoán mới':
                 # Đọc dữ liệu âm thanh
                 audio_bytes = audio_file.read()
                 # Phát âm thanh
-                st.audio(audio_bytes, format='audio/ogg')
+                # st.audio(audio_bytes, format='audio/ogg')
+                st.audio(audio_bytes)
             else:
                 st.warning("Hãy tải lên một tệp âm thanh để phát âm")
 
